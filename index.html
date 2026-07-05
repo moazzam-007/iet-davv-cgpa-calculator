@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IET DAVV CGPA Calculator - E&TC</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#1c1d20">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <h1>IET DAVV CGPA Calc</h1>
+                <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">☀ / 🌙</button>
+            </div>
+            <p class="subtitle">E&TC Department // Approximate Calculator</p>
+            <div style="margin-top: 15px; background: rgba(255, 107, 53, 0.1); border-left: 3px solid var(--primary); padding: 10px; text-align: left;">
+                <p style="color: var(--primary); font-size: 0.8rem; font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: 1px;">⚠️ Important Note</p>
+                <p style="color: var(--text-muted); font-size: 0.8rem; line-height: 1.4;">This calculates an <strong>approximate/tentative SGPA</strong>. Defaults are based on the E&TC syllabus (subject to college changes). Any student can use this calculator, simply click on the subject names or credits below to edit them according to your exact syllabus!</p>
+            </div>
+        </header>
+
+        <div class="controls">
+            <div class="control-group">
+                <label for="calc-mode">Mode</label>
+                <select id="calc-mode" aria-label="Select Calculation Mode">
+                    <option value="sgpa">SGPA Calculator</option>
+                    <option value="cgpa">CGPA Calculator</option>
+                </select>
+            </div>
+            
+            <div class="control-group" id="semester-select-group">
+                <label for="semester">Semester</label>
+                <select id="semester" aria-label="Select Semester">
+                    <option value="1">Semester I</option>
+                    <option value="2">Semester II</option>
+                    <option value="3">Semester III</option>
+                    <option value="4">Semester IV</option>
+                    <option value="5">Semester V</option>
+                    <option value="6">Semester VI</option>
+                    <option value="7">Semester VII</option>
+                    <option value="8">Semester VIII</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="sgpa-section" class="calculator-section">
+            <div class="subjects-header">
+                <span>Subject</span>
+                <span>Credits</span>
+                <span>Grade</span>
+            </div>
+            <div id="subjects-container">
+                <!-- Dynamically populated subjects -->
+            </div>
+        </div>
+
+        <div id="cgpa-section" class="calculator-section" style="display: none;">
+            <div class="cgpa-row" style="border-bottom: 2px dashed var(--key-border); padding-bottom: 10px; margin-bottom: 20px;">
+                <div style="font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">Semester</div>
+                <div class="cgpa-inputs" style="font-weight: 600; color: var(--text-muted); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px;">
+                    <div>SGPA</div>
+                    <div>Credits</div>
+                </div>
+            </div>
+            <div id="cgpa-inputs-container">
+                <!-- Dynamically populated cgpa rows -->
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button id="reset-btn" class="btn-secondary">Reset</button>
+            <button id="calculate-btn" class="btn-primary">Calculate</button>
+        </div>
+        
+        <div class="result-box" id="result-box" style="display: none;">
+            <h3 id="result-title">Result</h3>
+            <span class="value highlight" id="result-value">0.00</span>
+            <span class="percent" id="result-percent">0.00%</span>
+            
+            <br>
+            <button id="save-cgpa-btn" class="save-cgpa-btn" style="display: none;">Save to CGPA Table</button>
+        </div>
+        
+        <footer>
+            <p>Percentage = (Result - 0.5) × 10</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
