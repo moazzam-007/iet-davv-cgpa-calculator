@@ -1,6 +1,6 @@
 // Grade Points mapping
 const gradePoints = {
-    'A+': 10, 'A': 9, 'B+': 8, 'B': 7, 'C+': 6, 'C': 5, 'P': 4, 'F': 0, 'Ab': 0, 'N/A': 0
+    'O': 10, 'A+': 9, 'A': 8, 'B+': 7, 'B': 6, 'C': 5, 'P': 4, 'F': 0, 'Ab': 0, 'N/A': 0
 };
 
 // Default Approximate Syllabus (Tentative Theory Only)
