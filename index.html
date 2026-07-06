@@ -15,7 +15,10 @@
         <header>
             <div class="header-top">
                 <h1>IET DAVV CGPA Calc</h1>
-                <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">☀ / 🌙</button>
+                <div style="display: flex; gap: 8px;">
+                    <button id="guide-btn" class="theme-btn" title="How to Use">ℹ️ Guide</button>
+                    <button id="theme-toggle" class="theme-btn" title="Toggle Light/Dark Theme">☀ / 🌙</button>
+                </div>
             </div>
             <p class="subtitle">E&TC Department // Approximate Calculator</p>
             <div style="margin-top: 15px; background: rgba(255, 107, 53, 0.1); border-left: 3px solid var(--primary); padding: 10px; text-align: left;">
@@ -57,6 +60,11 @@
             <div id="subjects-container">
                 <!-- Dynamically populated subjects -->
             </div>
+            <div style="display: flex; gap: 10px; margin-top: 5px;">
+                <button id="add-practical-btn" class="add-subject-btn">+ Add Practical</button>
+                <button id="add-viva-btn" class="add-subject-btn">+ Add Comp. Viva</button>
+            </div>
+            <p class="add-subject-note">Note: If you know the grades for your Comprehensive Viva or Practicals, add them here to calculate a more accurate SGPA.</p>
         </div>
 
         <div id="cgpa-section" class="calculator-section" style="display: none;">
@@ -81,14 +89,45 @@
             <h3 id="result-title">Result</h3>
             <span class="value highlight" id="result-value">0.00</span>
             <span class="percent" id="result-percent">0.00%</span>
+            <div id="result-division" style="display: none; font-size: 0.85rem; font-weight: 600; color: var(--primary); margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;"></div>
             
             <br>
             <button id="save-cgpa-btn" class="save-cgpa-btn" style="display: none;">Save to CGPA Table</button>
+
+            <div id="target-planner-section" style="display: none; margin-top: 20px; border-top: 1px solid var(--key-border); padding-top: 15px; text-align: left;">
+                <label style="font-size: 0.85rem; color: var(--text-muted); font-weight: 600;">Target CGPA Planner (Optional)</label>
+                <div style="display: flex; gap: 10px; margin-top: 8px;">
+                    <input type="number" id="target-cgpa-input" placeholder="Target CGPA (e.g. 8.0)" step="0.1" min="0" max="10" style="flex: 1; min-height: 44px; padding: 12px 10px;">
+                    <input type="number" id="remaining-credits-input" placeholder="Rem. Credits (e.g. 48)" min="0" style="flex: 1; min-height: 44px; padding: 12px 10px;">
+                </div>
+                <p id="target-sgpa-result" style="display: none; color: var(--primary); font-size: 0.9rem; margin-top: 10px; font-weight: 600;"></p>
+            </div>
         </div>
         
         <footer>
-            <p>Percentage = (Result - 0.5) × 10</p>
+            <p>Equivalent Percentage = SGPA/CGPA × 10 (as per DAVV Ordinance-31)</p>
         </footer>
+    </div>
+
+    <!-- Guide Modal -->
+    <div id="guide-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" id="close-modal">&times;</span>
+            <h2>How to Use this Calculator</h2>
+            <div class="guide-text">
+                <h3>📖 Theory Subjects</h3>
+                <p>The calculator automatically loads the standard syllabus for E&TC. <strong>If you are from another branch</strong>, simply click on the subject names and credits to change them. Your changes are saved automatically!</p>
+                
+                <h3>🔬 Practicals</h3>
+                <p>Practicals usually carry 1 or 2 credits and count towards your SGPA. Just click the <strong>"+ Add Extra Subject / Viva"</strong> button to add a practical row, set the credits to 1 or 2, and select your grade.</p>
+
+                <h3>🗣 Comprehensive Viva</h3>
+                <p>According to the IET DAVV ordinance, Comprehensive Viva carries <strong>4 virtual credits</strong>. Click the <strong>"+ Add"</strong> button to easily add this to your calculation.</p>
+
+                <h3>🔄 SGPA to CGPA Sync</h3>
+                <p>Once you calculate your term SGPA, a <strong>"Save to CGPA Table"</strong> button will appear. Clicking it will safely copy that SGPA and total credits into the CGPA Calculator tab.</p>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
