@@ -475,7 +475,7 @@ footer {
 
 .modal-content {
     background-color: var(--panel-bg);
-    margin: 10% auto; 
+    margin: 5vh auto; 
     padding: 25px;
     border: 2px solid var(--key-border);
     border-radius: 12px;
@@ -484,6 +484,8 @@ footer {
     color: var(--text-main);
     position: relative;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    max-height: 85vh;
+    overflow-y: auto;
 }
 
 .close-modal {

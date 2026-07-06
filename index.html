@@ -14,6 +14,39 @@
     <link rel="stylesheet" href="style.css">
     <meta name="theme-color" content="#1c1d20">
     
+    <link rel="canonical" href="https://moazzam-007.github.io/iet-davv-cgpa-calculator/">
+    <meta property="og:title" content="IET DAVV CGPA & SGPA Calculator">
+    <meta property="og:description" content="Free, accurate CGPA/SGPA calculator for IET DAVV students — uses the correct official Ordinance-31 formula.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://moazzam-007.github.io/iet-davv-cgpa-calculator/">
+    <meta property="og:image" content="https://moazzam-007.github.io/iet-davv-cgpa-calculator/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the exact percentage formula for DAVV?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The exact formula is Percentage = CGPA × 10 (as per the official DAVV Ordinance-31, Section 23). It is NOT (CGPA - 0.5) × 10, which is often used by other generic calculators."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is this IET DAVV SGPA calculator for?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "This free E&TC CGPA calculator is designed specifically for students of Institute of Engineering and Technology, DAVV Indore. It supports practicals, comprehensive viva, and automatic division calculation."
+          }
+        }
+      ]
+    }
+    </script>
+    
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FSWRHKBMH"></script>
     <script>
@@ -118,20 +151,21 @@
                 <p id="target-sgpa-result" style="display: none; color: var(--primary); font-size: 0.9rem; margin-top: 10px; font-weight: 600;"></p>
             </div>
         </div>
-        <div class="faq-section" style="margin-top: 30px; text-align: left; padding: 20px; background: var(--panel-bg); border-radius: 12px; border: 1px solid var(--key-border);">
-            <h2 style="font-size: 1.1rem; color: var(--text-main); margin-bottom: 12px;">Frequently Asked Questions (FAQ)</h2>
-            <div style="margin-bottom: 15px;">
-                <h3 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 5px;">What is the exact percentage formula for DAVV?</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">The exact formula is <strong>Percentage = CGPA × 10</strong> (as per the official DAVV Ordinance-31, Section 23). It is <strong>NOT</strong> <em>(CGPA - 0.5) × 10</em> which is often used by other generic calculators. Our calculator uses the official and correct IET DAVV formula.</p>
-            </div>
-            <div>
-                <h3 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 5px;">Who is this IET DAVV SGPA calculator for?</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">This free E&TC CGPA calculator is designed specifically for students of Institute of Engineering and Technology, DAVV Indore. It supports practicals, comprehensive viva, and automatic division calculation.</p>
-            </div>
-        </div>
-        
-        <footer>
+        <footer style="margin-top: 30px; text-align: center;">
             <p>Equivalent Percentage = SGPA/CGPA × 10 (as per DAVV Ordinance-31)</p>
+            <div style="margin-top: 15px; font-size: 0.85rem; color: var(--text-muted);">
+                <a href="syllabus.html" style="color: var(--primary); text-decoration: none; font-weight: 600; margin: 0 10px;">View E&TC Syllabus</a>
+            </div>
+            <div style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--key-border);">
+                <h4 style="margin-bottom: 8px; font-size: 0.9rem; color: var(--text-main);">Official IET DAVV Resources</h4>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://ietdavv.edu.in" target="_blank" style="color: var(--text-muted); text-decoration: underline;">Official Website</a>
+                    <a href="https://timetable.ietonline.in" target="_blank" style="color: var(--text-muted); text-decoration: underline;">Time Table</a>
+                    <a href="https://results.ietdavv.edu.in" target="_blank" style="color: var(--text-muted); text-decoration: underline;">Results Portal</a>
+                    <a href="https://notices.ietonline.in" target="_blank" style="color: var(--text-muted); text-decoration: underline;">Notices</a>
+                    <a href="https://times.ietonline.in" target="_blank" style="color: var(--text-muted); text-decoration: underline;">IET Times (News)</a>
+                </div>
+            </div>
         </footer>
     </div>
 
@@ -152,10 +186,23 @@
 
                 <h3>🔄 SGPA to CGPA Sync</h3>
                 <p>Once you calculate your term SGPA, a <strong>"Save to CGPA Table"</strong> button will appear. Clicking it will safely copy that SGPA and total credits into the CGPA Calculator tab.</p>
+                
+                <hr style="border: 0; border-top: 1px solid var(--key-border); margin: 25px 0 15px 0;">
+                
+                <h2 style="font-size: 1.2rem; color: var(--text-main); margin-bottom: 12px;">Frequently Asked Questions (FAQ)</h2>
+                <div style="margin-bottom: 15px;">
+                    <h3 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 5px;">What is the exact percentage formula for DAVV?</h3>
+                    <p>The exact formula is <strong>Percentage = CGPA × 10</strong> (as per the official DAVV Ordinance-31, Section 23). It is <strong>NOT</strong> <em>(CGPA - 0.5) × 10</em> which is often used by other generic calculators. Our calculator uses the official and correct IET DAVV formula.</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 0.95rem; color: var(--primary); margin-bottom: 5px;">Who is this IET DAVV SGPA calculator for?</h3>
+                    <p>This free E&TC CGPA calculator is designed specifically for students of Institute of Engineering and Technology, DAVV Indore. It supports practicals, comprehensive viva, and automatic division calculation.</p>
+                </div>
             </div>
         </div>
     </div>
 
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
