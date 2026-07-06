@@ -20,7 +20,12 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://moazzam-007.github.io/iet-davv-cgpa-calculator/syllabus.html">
     <meta property="og:image" content="https://moazzam-007.github.io/iet-davv-cgpa-calculator/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IET DAVV E&TC Syllabus - Semester Wise Subjects">
+    <meta name="twitter:description" content="View the complete semester-wise syllabus (subjects and credits) for IET DAVV E&TC engineering branch.">
+    <meta name="twitter:image" content="https://moazzam-007.github.io/iet-davv-cgpa-calculator/og-image.png">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2FSWRHKBMH"></script>
@@ -36,6 +41,9 @@
         .syllabus-table th, .syllabus-table td { padding: 12px; border-bottom: 1px solid var(--key-border); text-align: left; }
         .syllabus-table th { color: var(--primary); font-size: 0.9rem; text-transform: uppercase; font-weight: 600; }
         .syllabus-table td { color: var(--text-main); font-size: 0.95rem; }
+        @media (max-width: 600px) {
+            .syllabus-table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
         .sem-title { margin-top: 30px; margin-bottom: 10px; color: var(--text-main); border-left: 3px solid var(--primary); padding-left: 10px; }
     </style>
 </head>
@@ -156,10 +164,19 @@
         </footer>
     </div>
     <script>
+        // Safe parse helper
+        function safeParseState() {
+            try {
+                return JSON.parse(localStorage.getItem('cgpaCalcState') || '{}');
+            } catch (e) {
+                return {};
+            }
+        }
+
         const themeToggleBtn = document.getElementById('theme-toggle');
         
-        // Load theme from cgpaCalcState (shared with script.js)
-        const savedState = JSON.parse(localStorage.getItem('cgpaCalcState') || '{}');
+        // Load theme from cgpaCalcState
+        const savedState = safeParseState();
         if (savedState.theme) {
             document.body.classList.add('light-theme');
         }
@@ -167,7 +184,7 @@
         if (themeToggleBtn) {
             themeToggleBtn.addEventListener('click', () => {
                 const isLight = document.body.classList.toggle('light-theme');
-                const currentState = JSON.parse(localStorage.getItem('cgpaCalcState') || '{}');
+                const currentState = safeParseState();
                 currentState.theme = isLight;
                 localStorage.setItem('cgpaCalcState', JSON.stringify(currentState));
             });

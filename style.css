@@ -389,8 +389,8 @@ footer {
         min-height: 44px;
     }
     .theme-btn {
-        min-width: 44px;
-        min-height: 44px;
+        padding: 6px 10px;
+        font-size: 1rem;
     }
     
     .mobile-input-wrap label {

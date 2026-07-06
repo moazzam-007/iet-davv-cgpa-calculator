@@ -84,37 +84,47 @@ function init() {
     }
 }
 
-// Persist Data (localStorage)
+// Safe JSON parse — corrupted localStorage se crash nahi hoga
+function safeParseState() {
+    try {
+        return JSON.parse(localStorage.getItem('cgpaCalcState') || '{}');
+    } catch (e) {
+        console.warn('Corrupted cgpaCalcState, resetting.', e);
+        return {};
+    }
+}
+
+// Persist Data (localStorage) — FIXED
 function saveState() {
+    // Pehle existing saved data padho, taaki dusre semesters overwrite na ho
+    const existing = safeParseState();
+    const existingSubjects = existing.subjects || {};
+
     const data = {
         theme: document.body.classList.contains('light-theme'),
         mode: modeSelect.value,
         semester: semesterSelect.value,
-        subjects: {},
+        subjects: { ...existingSubjects }, // saare purane semesters preserve
         cgpaData: {}
     };
-    
-    // Save current subject inputs
-    for (let i = 1; i <= 8; i++) {
-        data.subjects[i] = [];
-        const container = (i == semesterSelect.value && modeSelect.value === 'sgpa') 
-            ? subjectsContainer 
-            : null;
-            
-        const rows = container ? container.querySelectorAll('.subject-row') : [];
-        if (rows.length > 0) {
-            rows.forEach(row => {
-                const inputs = row.querySelectorAll('input, select');
-                data.subjects[i].push({
-                    name: inputs[0].value,
-                    credits: inputs[1].value,
-                    grade: inputs[2].value
-                });
+
+    // Sirf CURRENT visible semester ka data overwrite karo
+    if (modeSelect.value === 'sgpa') {
+        const currentSem = semesterSelect.value;
+        const rows = subjectsContainer.querySelectorAll('.subject-row');
+        const currentSubjects = [];
+        rows.forEach(row => {
+            const inputs = row.querySelectorAll('input, select');
+            currentSubjects.push({
+                name: inputs[0].value,
+                credits: inputs[1].value,
+                grade: inputs[2].value
             });
-        }
+        });
+        data.subjects[currentSem] = currentSubjects;
     }
 
-    // Save CGPA inputs
+    // CGPA inputs — ye already sahi tha
     for (let i = 1; i <= 8; i++) {
         if (cgpaRowRefs[i-1]) {
             data.cgpaData[i] = {
@@ -125,10 +135,11 @@ function saveState() {
     }
 
     localStorage.setItem('cgpaCalcState', JSON.stringify(data));
+    window.savedData = data;
 }
 
 function loadState() {
-    const saved = JSON.parse(localStorage.getItem('cgpaCalcState') || '{}');
+    const saved = safeParseState();
     
     if (saved.theme) document.body.classList.add('light-theme');
     if (saved.mode) modeSelect.value = saved.mode;
@@ -192,7 +203,7 @@ function renderSubjects(semester) {
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.value = subject.name;
-        nameInput.ariaLabel = `Subject ${index + 1} Name`;
+        nameInput.setAttribute('aria-label', `Subject ${index + 1} Name`);
         nameInput.addEventListener('input', debouncedSave);
 
         // Credits Input
@@ -202,7 +213,7 @@ function renderSubjects(semester) {
         creditsInput.value = subject.credits;
         creditsInput.min = '0';
         creditsInput.max = '20';
-        creditsInput.ariaLabel = `Subject ${index + 1} Credits`;
+        creditsInput.setAttribute('aria-label', `Subject ${index + 1} Credits`);
         creditsInput.addEventListener('input', debouncedSave);
 
         const creditsWrap = document.createElement('div');
@@ -214,7 +225,7 @@ function renderSubjects(semester) {
 
         // Grade Select
         const gradeSelect = document.createElement('select');
-        gradeSelect.ariaLabel = `Subject ${index + 1} Grade`;
+        gradeSelect.setAttribute('aria-label', `Subject ${index + 1} Grade`);
         Object.keys(gradePoints).forEach(grade => {
             const option = document.createElement('option');
             option.value = grade;
@@ -271,7 +282,7 @@ function addSubjectRow(defaultName, defaultCredits) {
     const nameInput = document.createElement('input');
     nameInput.type = 'text';
     nameInput.value = newSubject.name;
-    nameInput.ariaLabel = `Extra Subject Name`;
+    nameInput.setAttribute('aria-label', `Extra Subject Name`);
     nameInput.addEventListener('input', debouncedSave);
 
     const creditsInput = document.createElement('input');
@@ -280,7 +291,7 @@ function addSubjectRow(defaultName, defaultCredits) {
     creditsInput.value = newSubject.credits;
     creditsInput.min = '0';
     creditsInput.max = '20';
-    creditsInput.ariaLabel = `Extra Subject Credits`;
+    creditsInput.setAttribute('aria-label', `Extra Subject Credits`);
     creditsInput.addEventListener('input', debouncedSave);
 
     const creditsWrap = document.createElement('div');
@@ -291,7 +302,7 @@ function addSubjectRow(defaultName, defaultCredits) {
     creditsWrap.appendChild(creditsInput);
 
     const gradeSelect = document.createElement('select');
-    gradeSelect.ariaLabel = `Extra Subject Grade`;
+    gradeSelect.setAttribute('aria-label', `Extra Subject Grade`);
     Object.keys(gradePoints).forEach(grade => {
         const option = document.createElement('option');
         option.value = grade;
@@ -351,7 +362,7 @@ function renderCgpaInputs() {
         sgpaInput.step = '0.01';
         sgpaInput.min = '0';
         sgpaInput.max = '10';
-        sgpaInput.ariaLabel = `Semester ${i} SGPA`;
+        sgpaInput.setAttribute('aria-label', `Semester ${i} SGPA`);
         sgpaInput.addEventListener('input', debouncedSave);
         
         const creditsInput = document.createElement('input');
@@ -360,7 +371,7 @@ function renderCgpaInputs() {
         creditsInput.id = `sem${i}-credits`;
         creditsInput.placeholder = 'Credits (e.g. 22)';
         creditsInput.min = '0';
-        creditsInput.ariaLabel = `Semester ${i} Credits`;
+        creditsInput.setAttribute('aria-label', `Semester ${i} Credits`);
         creditsInput.addEventListener('input', debouncedSave);
         
         if (window.savedData && window.savedData.cgpaData && window.savedData.cgpaData[i]) {
@@ -530,7 +541,7 @@ function getDivision(cgpaStr) {
 function showResult(title, value, percentage) {
     resultTitle.textContent = title;
     resultValue.textContent = value;
-    resultPercent.textContent = `${Math.max(0, percentage)}%`;
+    resultPercent.textContent = `${percentage}%`;
     resultBox.style.display = 'block';
     
     const divisionEl = document.getElementById('result-division');
