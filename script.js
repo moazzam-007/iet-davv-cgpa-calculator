@@ -552,4 +552,24 @@ function showResult(title, value, percentage) {
 }
 
 // Run on load
-document.addEventListener('DOMContentLoaded', init);
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+    
+    // FAQ Accordion Logic
+    document.querySelectorAll('.faq-question').forEach(button => {
+        button.addEventListener('click', () => {
+            const answer = button.nextElementSibling;
+            
+            // Optional: close other open answers
+            document.querySelectorAll('.faq-answer').forEach(ans => {
+                if (ans !== answer && ans.classList.contains('show')) {
+                    ans.classList.remove('show');
+                    ans.previousElementSibling.classList.remove('active');
+                }
+            });
+
+            button.classList.toggle('active');
+            answer.classList.toggle('show');
+        });
+    });
+});
